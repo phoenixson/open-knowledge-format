@@ -56,9 +56,12 @@ reference fixtures for the CLI.
 
 ## Reshape candidates (under review)
 
-1. Patch the upstream viewer to skip `log.md` (SPEC §3.1 reserved filename) —
-   currently renders a phantom "Unknown" node. One-line divergence, deferred
-   to keep sync clean.
+1. ~~Patch the upstream viewer to skip `log.md`~~ **DONE (2026-08-23):**
+   upstream's viewer only skipped `index.md`, so `log.md` rendered as a
+   phantom "Unknown" node. One-line divergence applied in the fork
+   (`viewer/generator.py` `_walk_concepts`); `acme_retail` visualize now
+   reports 9 concepts (was 10). If upstream ever rewrites that walker,
+   expect a trivial merge conflict.
 2. Richer `validate`: timestamp-format conformance, reserved-name checks,
    link-target resolution, frontmatter/body metadata sync.
 3. STE corpus adapter: read `kind`/`domain`/`standard_version` from

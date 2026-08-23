@@ -103,7 +103,12 @@ def _extract_links(body: str, doc_dir: Path, bundle_root: Path) -> list[str]:
 def _walk_concepts(bundle_root: Path) -> list[Concept]:
     concepts: list[Concept] = []
     for md_path in sorted(bundle_root.rglob("*.md")):
-        if md_path.name == _INDEX_NAME:
+        if md_path.name in (_INDEX_NAME, "log.md"):
+            # Frame delta (phoenixson, 2026-08-23): log.md is a reserved
+            # filename (SPEC v0.2 §3.1), not a concept document. Upstream
+            # only skipped index.md, which rendered log.md as a phantom
+            # "Unknown" node in viz output. Deliberate one-line divergence
+            # from upstream (see docs/frame.md).
             continue
         rel = md_path.relative_to(bundle_root).with_suffix("")
         concept_id = "/".join(rel.parts)

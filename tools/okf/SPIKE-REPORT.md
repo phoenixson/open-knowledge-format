@@ -42,16 +42,16 @@ sections are ordinary body markdown.
 1. **`regenerate_indexes` overwrites curated index prose.** Treat `index.md`
    as a **generated artifact** — commit it, don't hand-edit (or add
    preserve-on-regen as a reshape).
-2. **Upstream viewer does not skip `log.md`** (SPEC §3.1 reserved filename) —
-   it renders as a phantom "Unknown" node in viz output. One-line fix,
-   deferred to the reshape pass to keep the fork sync-clean
-   (documented in `docs/frame.md`).
+2. **Upstream viewer did not skip `log.md`** (SPEC §3.1 reserved filename) —
+   it rendered as a phantom "Unknown" node in viz output. **Fixed in the
+   fork** (2026-08-23; one-line divergence in `viewer/generator.py`;
+   `acme_retail` visualize now reports 9 concepts, was 10).
 3. **The description synthesizer runs fully offline** — lazy genai import
    with a deterministic fallback. An LLM-backed version is a ~10-line adapt.
 
 ## Reshape candidates (operator's detailed review)
 
-1. Patch viewer to skip `log.md` (accept the one-line divergence).
+1. ~~Patch viewer to skip `log.md`~~ — done (2026-08-23).
 2. Richer `validate`: timestamp-format conformance, reserved-name checks,
    link-target resolution, frontmatter/body sync check.
 3. STE corpus adapter: read `kind`/`domain`/`standard_version` from
